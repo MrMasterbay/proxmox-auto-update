@@ -1,6 +1,52 @@
---------------
+# Proxmox Auto‑Update Script
 
-`# Proxmox Auto‑Update Script    A small, self‑contained Bash utility that safely updates a Proxmox node (Debian 13 base) and notifies you by e‑mail. It:   * Prevents concurrent executions with a lock file. * Installs **`needrestart`** automatically if it isn't present. * Runs `apt update`, `apt full-upgrade`, `apt autoremove` and `apt clean`. * Checks for a required reboot in **two** ways:   1.  `needs-restarting -r` (only reported when a reboot is actually needed).   2. The classic Debian flag file `/var/run/reboot‑required`. * Writes a detailed log to `/var/log/proxmox-auto-update.log`. * Sends a concise e‑mail whose **subject line** already tells you whether a reboot is required.   >  **Important:** The script never reboots the host automatically -- you decide when to restart.   ---    ## Table of Contents    -  [Prerequisites](#prerequisites)  -  [Installation](#installation)  -  [Configuration](#configuration)  -  [Running the script manually](#running-the-script-manually)  -  [Scheduling with cron](#scheduling-with-cron)  -  [Log files](#log-files)  -  [Troubleshooting](#troubleshooting)  -  [License](#license)    ---    ## Prerequisites    | Requirement | Why it's needed |  |-------------|-----------------|  |  **Root / sudo privileges**  | The script manipulates the package manager and writes to system directories. |  |  **`mail` (or compatible MTA)**  | Used to send the notification e‑mail. Most Proxmox installations already have `postfix` or `exim4`. |  |  **Internet connectivity**  | To fetch package lists and install `needrestart` if missing. |  |  **Bash ≥ 4** (standard on Debian 13) | The script uses Bash‑specific features (`set -euo pipefail`). |    ---    ## Installation    1.  **Copy the script to the target host** (e.g. via `scp` or a configuration‑management tool).   ```bash sudo cp proxmox-auto-update.sh /usr/local/sbin/ sudo chmod +x /usr/local/sbin/proxmox-auto-update.sh`
+A small, self‑contained Bash utility that safely updates a Proxmox node (Debian 13 base) and notifies you by e‑mail.  
+It:
+
+* Prevents concurrent executions with a lock file.  
+* Installs **`needrestart`** automatically if it isn’t present.  
+* Runs `apt update`, `apt full-upgrade`, `apt autoremove` and `apt clean`.  
+* Checks for a required reboot in **two** ways:  
+  1. `needs-restarting -r` (only reported when a reboot is actually needed).  
+  2. The classic Debian flag file `/var/run/reboot‑required`.  
+* Writes a detailed log to `/var/log/proxmox-auto-update.log`.  
+* Sends a concise e‑mail whose **subject line** already tells you whether a reboot is required.
+
+> **Important:** The script never reboots the host automatically – you decide when to restart.
+
+---
+
+## Table of Contents
+
+- [Prerequisites](#prerequisites)  
+- [Installation](#installation)  
+- [Configuration](#configuration)  
+- [Running the script manually](#running-the-script-manually)  
+- [Scheduling with cron](#scheduling-with-cron)  
+- [Log files](#log-files)  
+- [Troubleshooting](#troubleshooting)  
+- [License](#license)  
+
+---
+
+## Prerequisites
+
+| Requirement | Why it’s needed |
+|-------------|-----------------|
+| **Root / sudo privileges** | The script manipulates the package manager and writes to system directories. |
+| **`mail` (or compatible MTA)** | Used to send the notification e‑mail. Most Proxmox installations already have `postfix` or `exim4`. |
+| **Internet connectivity** | To fetch package lists and install `needrestart` if missing. |
+| **Bash ≥ 4** (standard on Debian 13) | The script uses Bash‑specific features (`set -euo pipefail`). |
+
+---
+
+## Installation
+
+1. **Copy the script to the target host** (e.g. via `scp` or a configuration‑management tool).
+
+   ```bash
+   sudo cp proxmox-auto-update.sh /usr/local/sbin/
+   sudo chmod +x /usr/local/sbin/proxmox-auto-update.sh
 
 1.  **Verify the script runs without errors** (a log file will be created).
 
