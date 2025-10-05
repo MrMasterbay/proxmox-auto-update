@@ -43,7 +43,7 @@ apt-get install -y sshpass
 
 ```bash
 cd /root
-wget https://example.com/proxmox-auto-update.sh
+git clone https://github.com/MrMasterbay/proxmox-auto-update.git
 chmod +x proxmox-auto-update.sh
 ```
 
