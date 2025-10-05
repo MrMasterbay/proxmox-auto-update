@@ -474,8 +474,8 @@ $(echo -e "${CLUSTER_SUMMARY}")
 For full details, see the log file at ${LOGFILE} on ${HOSTNAME}.
 
 Please consider supporting this script development:
-💖 Ko-fi: ko-fi.com/bagstube_nico"
-🔗 Links: linktr.ee/bagstube_nico"
+💖 Ko-fi: ko-fi.com/bagstube_nico
+🔗 Links: linktr.ee/bagstube_nico
 EOF
 
 exit 0
