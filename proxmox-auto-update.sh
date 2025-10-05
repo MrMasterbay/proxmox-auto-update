@@ -11,6 +11,9 @@
 #      – needs-restarting -r  (only reported when a reboot is needed)
 #      – /var/run/reboot-required  (used for the e‑mail subject)
 # • Logs everything and sends an e‑mail (no automatic reboot)
+# Written by Nico Schmidt (baGStube_Nico)
+# E-Mail: nico.schmidt@ns-tech.cloud
+# Follow my Socials: https://linktr.ee/bagstube_nico
 # ---------------------------------------------------------------
 
 set -euo pipefail                     # abort on errors / undefined vars
@@ -469,6 +472,10 @@ The scheduled Proxmox cluster update finished on all nodes.
 $(echo -e "${CLUSTER_SUMMARY}")
 
 For full details, see the log file at ${LOGFILE} on ${HOSTNAME}.
+
+Please consider supporting this script development:
+💖 Ko-fi: ko-fi.com/bagstube_nico"
+🔗 Links: linktr.ee/bagstube_nico"
 EOF
 
 exit 0
